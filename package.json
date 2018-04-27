@@ -1,6 +1,6 @@
 {
   "name": "css-transform-string",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create css transform string from object",
   "main": "index.js",
   "files": ["index.js", "README.md", "LICENSE"],

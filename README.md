@@ -1,6 +1,7 @@
 # css-transform-string
 
 [![npm version](https://img.shields.io/npm/v/css-transform-string.svg?style=flat)](https://www.npmjs.com/package/css-transform-string)
+[![build status](https://travis-ci.org/asbjornh/css-transform-string.svg?branch=master)](https://travis-ci.org/asbjornh/css-transform-string)
 
 ### transform(_transformObject_)
 
