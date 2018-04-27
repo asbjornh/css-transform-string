@@ -1,0 +1,35 @@
+{
+  "name": "css-transform-string",
+  "version": "0.1.0",
+  "description": "Create css transform string from object",
+  "main": "index.js",
+  "files": ["index.js", "README.md", "LICENSE"],
+  "scripts": {
+    "test": "jest"
+  },
+  "contributors": [
+    {
+      "name": "Asbjorn Hegdahl",
+      "url": "https://github.com/asbjornh/"
+    }
+  ],
+  "author": "asbjornh",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "jest-cli": "^22.4.3",
+    "prettier": "^1.12.1"
+  },
+  "jest": {
+    "rootDir": "",
+    "modulePathIgnorePatterns": ["<rootDir>/node_modules/"],
+    "transformIgnorePatterns": ["<rootDir>/node_modules/"],
+    "unmockedModulePathPatterns": ["<rootDir>/node_modules/"]
+  }
+}
