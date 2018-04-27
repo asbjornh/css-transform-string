@@ -36,6 +36,19 @@ describe('transform', () => {
     ).toMatch('translate(1px) scale(1, 1) skew(1deg, 1deg)');
   });
 
+  it('supports negative values', () => {
+    expect(
+      transform({
+        x: -1,
+        translate3d: [-1, -1, -1],
+        rotate: -1,
+        skew: [-1, -1]
+      })
+    ).toMatch(
+      'translateX(-1px) translate3d(-1px, -1px, -1px) rotate(-1deg) skew(-1deg, -1deg)'
+    );
+  });
+
   it('supports zero-values', () => {
     expect(
       transform({ x: 0, translate3d: [0, 0, 0], scale: 0, rotate: 0, skew: 0 })

@@ -1,13 +1,13 @@
 function parseCoord(translate) {
   return typeof translate === 'string'
     ? translate
-    : translate + (translate > 0 ? 'px' : '');
+    : translate + (translate === 0 ? '' : 'px');
 }
 
 function parseDegree(degree) {
   return typeof degree === 'string'
     ? degree
-    : degree + (degree > 0 ? 'deg' : '');
+    : degree + (degree === 0 ? '' : 'deg');
 }
 
 function getMultiDimensionalString(coords, parser) {
