@@ -13,10 +13,7 @@ const stringifyList = (list, unit) =>
 
 const getMultiTranslate = coords => stringifyList(ensureArray(coords), 'px');
 const getMultiDegrees = coords => stringifyList(ensureArray(coords), 'deg');
-
-function getMultiValues(values) {
-  return values.length > 1 ? stringifyList(values, '') : values;
-}
+const getMultiUnitless = coords => stringifyList(ensureArray(coords), '');
 
 function exists(val) {
   return typeof val !== 'undefined';
@@ -51,11 +48,11 @@ function transform({
   string += exists(translate3d)
     ? `translate3d(${getMultiTranslate(translate3d)}) `
     : '';
-  string += exists(scale) ? `scale(${getMultiValues(scale)}) ` : '';
+  string += exists(scale) ? `scale(${getMultiUnitless(scale)}) ` : '';
   string += exists(scaleX) ? `scaleX(${scaleX}) ` : '';
   string += exists(scaleY) ? `scaleY(${scaleY}) ` : '';
   string += exists(scaleZ) ? `scaleZ(${scaleZ}) ` : '';
-  string += exists(scale3d) ? `scale3d(${getMultiValues(scale3d)}) ` : '';
+  string += exists(scale3d) ? `scale3d(${getMultiUnitless(scale3d)}) ` : '';
   string += exists(rotate) ? `rotate(${maybeDegrees(rotate)}) ` : '';
   string += exists(rotateX) ? `rotateX(${maybeDegrees(rotateX)}) ` : '';
   string += exists(rotateY) ? `rotateY(${maybeDegrees(rotateY)}) ` : '';
