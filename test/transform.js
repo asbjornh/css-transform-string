@@ -5,6 +5,8 @@ const template = (t, input, expected) => {
   t.is(expected, transform(input));
 };
 
+test('Empty argument', template, undefined, '');
+
 test(
   'Supports all properties',
   template,
