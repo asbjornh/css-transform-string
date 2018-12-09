@@ -45,7 +45,7 @@ const stringifiers = addUnits => {
   };
 };
 
-function transform(transformProperties = {}, addUnits) {
+function doTransform(transformProperties = {}, addUnits) {
   return Object.entries(transformProperties)
     .map(([name, value]) => {
       const stringifier = stringifiers(addUnits)[name];
@@ -59,7 +59,18 @@ function transform(transformProperties = {}, addUnits) {
     .join(' ');
 }
 
-export default {
-  transform: transformProperties => transform(transformProperties, true),
-  transformUnitless: transformProperties => transform(transformProperties)
-};
+function doTranslate(x, y, addUnits) {
+  const values = [x, y].filter(v => typeof v !== 'undefined');
+  return values.length ? stringifiers(addUnits).translate(values) : '';
+}
+
+const transformUnits = transformProperties =>
+  doTransform(transformProperties, true);
+
+export const transform = transformUnits;
+export const transformUnitless = transformProperties =>
+  doTransform(transformProperties);
+export const translate = (x, y) => doTranslate(x, y, true);
+export const translateUnitless = (x, y) => doTranslate(x, y);
+
+export default transform;
