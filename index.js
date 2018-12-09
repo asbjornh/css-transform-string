@@ -1,3 +1,5 @@
+const trimTrailingWhitespace = (string = '') => string.replace(/\s+$/, '');
+
 function parseCoord(translate) {
   return typeof translate === 'string'
     ? translate
@@ -81,7 +83,7 @@ function transform({
     ? `perspective(${parseCoord(perspective)}) `
     : '';
 
-  return string;
+  return trimTrailingWhitespace(string);
 }
 
 export default transform;
