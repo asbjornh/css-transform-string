@@ -15,9 +15,7 @@ const getMultiTranslate = coords => stringifyList(ensureArray(coords), 'px');
 const getMultiDegrees = coords => stringifyList(ensureArray(coords), 'deg');
 const getMultiUnitless = coords => stringifyList(ensureArray(coords), '');
 
-function exists(val) {
-  return typeof val !== 'undefined';
-}
+const exists = val => typeof val !== 'undefined';
 
 function transform({
   x,
