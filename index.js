@@ -9,11 +9,13 @@ const maybeDegrees = value => maybeAddUnit(value, 'deg');
 const ensureArray = value => (value.length ? value : [value]);
 
 const stringifyList = (list, unit) =>
-  list.map(value => maybeAddUnit(value, unit)).join(', ');
+  ensureArray(list)
+    .map(value => maybeAddUnit(value, unit))
+    .join(', ');
 
-const maybePixelsList = coords => stringifyList(ensureArray(coords), 'px');
-const maybeDegreesList = coords => stringifyList(ensureArray(coords), 'deg');
-const unitlessList = coords => stringifyList(ensureArray(coords), '');
+const maybePixelsList = values => stringifyList(values, 'px');
+const maybeDegreesList = values => stringifyList(values, 'deg');
+const unitlessList = values => stringifyList(values, '');
 
 const stringifiers = {
   x: v => `translateX(${maybePixels(v)})`,
