@@ -71,3 +71,10 @@ test(
   },
   'translateX(50%) translate(50%, 50%) rotate(1rad) skew(1rad, 1rad) perspective(1em)'
 );
+
+test('Throws on unsupported property', t => {
+  const error = t.throws(() => {
+    transform({ notSupported: 1 });
+  });
+  t.is(error.message, "Property 'notSupported' is not supported");
+});
