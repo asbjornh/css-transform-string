@@ -37,9 +37,11 @@ test(
     rotateY: 1,
     rotateZ: 1,
     skew: 1,
+    skewX: 1,
+    skewY: 1,
     perspective: 1
   },
-  'translateX(1px) translateY(1px) translateZ(1px) translate(1px, 1px) translate3d(1px, 1px, 1px) scale(1) scaleX(1) scaleY(1) scaleZ(1) scale3d(1, 1, 1) rotate(1deg) rotateX(1deg) rotateY(1deg) rotateZ(1deg) skew(1deg) perspective(1px)'
+  'translateX(1px) translateY(1px) translateZ(1px) translate(1px, 1px) translate3d(1px, 1px, 1px) scale(1) scaleX(1) scaleY(1) scaleZ(1) scale3d(1, 1, 1) rotate(1deg) rotateX(1deg) rotateY(1deg) rotateZ(1deg) skew(1deg) skewX(1deg) skewY(1deg) perspective(1px)'
 );
 
 test(
