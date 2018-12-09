@@ -6,28 +6,23 @@ const maybeAddUnit = (value, unit) =>
 const maybePixels = value => maybeAddUnit(value, 'px');
 const maybeDegrees = value => maybeAddUnit(value, 'deg');
 
-function getMultiDimensionalString(coords, unit) {
-  return coords.reduce((accum, coord, i) => {
-    accum += maybeAddUnit(coord, unit);
-    accum += i < coords.length - 1 ? ', ' : '';
-    return accum;
-  }, '');
-}
+const stringifyList = (list, unit) =>
+  list.map(value => maybeAddUnit(value, unit)).join(', ');
 
 function getMultiTranslate(coords) {
   return coords.length > 1
-    ? getMultiDimensionalString(coords, 'px')
+    ? stringifyList(coords, 'px')
     : maybeAddUnit(coords, 'px');
 }
 
 function getMultiDegrees(degrees) {
   return degrees.length > 1
-    ? getMultiDimensionalString(degrees, 'deg')
+    ? stringifyList(degrees, 'deg')
     : maybeAddUnit(degrees, 'deg');
 }
 
 function getMultiValues(values) {
-  return values.length > 1 ? getMultiDimensionalString(values, '') : values;
+  return values.length > 1 ? stringifyList(values, '') : values;
 }
 
 function exists(val) {
