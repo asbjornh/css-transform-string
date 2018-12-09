@@ -1,20 +1,14 @@
 const trimTrailingWhitespace = (string = '') => string.replace(/\s+$/, '');
 
-function parseCoord(translate) {
-  return typeof translate === 'string'
-    ? translate
-    : translate + (translate === 0 ? '' : 'px');
-}
+const maybeAddUnit = (value, unit) =>
+  value + (typeof value !== 'number' || value === 0 ? '' : unit);
 
-function parseDegree(degree) {
-  return typeof degree === 'string'
-    ? degree
-    : degree + (degree === 0 ? '' : 'deg');
-}
+const maybePixels = value => maybeAddUnit(value, 'px');
+const maybeDegrees = value => maybeAddUnit(value, 'deg');
 
-function getMultiDimensionalString(coords, parser) {
+function getMultiDimensionalString(coords, unit) {
   return coords.reduce((accum, coord, i) => {
-    accum += parser(coord);
+    accum += maybeAddUnit(coord, unit);
     accum += i < coords.length - 1 ? ', ' : '';
     return accum;
   }, '');
@@ -22,18 +16,18 @@ function getMultiDimensionalString(coords, parser) {
 
 function getMultiTranslate(coords) {
   return coords.length > 1
-    ? getMultiDimensionalString(coords, parseCoord)
-    : parseCoord(coords);
+    ? getMultiDimensionalString(coords, 'px')
+    : maybeAddUnit(coords, 'px');
 }
 
 function getMultiDegrees(degrees) {
   return degrees.length > 1
-    ? getMultiDimensionalString(degrees, parseDegree)
-    : parseDegree(degrees);
+    ? getMultiDimensionalString(degrees, 'deg')
+    : maybeAddUnit(degrees, 'deg');
 }
 
 function getMultiValues(values) {
-  return values.length > 1 ? getMultiDimensionalString(values, v => v) : values;
+  return values.length > 1 ? getMultiDimensionalString(values, '') : values;
 }
 
 function exists(val) {
@@ -60,9 +54,9 @@ function transform({
 }) {
   let string = '';
 
-  string += exists(x) ? `translateX(${parseCoord(x)}) ` : '';
-  string += exists(y) ? `translateY(${parseCoord(y)}) ` : '';
-  string += exists(z) ? `translateZ(${parseCoord(z)}) ` : '';
+  string += exists(x) ? `translateX(${maybePixels(x)}) ` : '';
+  string += exists(y) ? `translateY(${maybePixels(y)}) ` : '';
+  string += exists(z) ? `translateZ(${maybePixels(z)}) ` : '';
   string += exists(translate)
     ? `translate(${getMultiTranslate(translate)}) `
     : '';
@@ -74,13 +68,13 @@ function transform({
   string += exists(scaleY) ? `scaleY(${scaleY}) ` : '';
   string += exists(scaleZ) ? `scaleZ(${scaleZ}) ` : '';
   string += exists(scale3d) ? `scale3d(${getMultiValues(scale3d)}) ` : '';
-  string += exists(rotate) ? `rotate(${parseDegree(rotate)}) ` : '';
-  string += exists(rotateX) ? `rotateX(${parseDegree(rotateX)}) ` : '';
-  string += exists(rotateY) ? `rotateY(${parseDegree(rotateY)}) ` : '';
-  string += exists(rotateZ) ? `rotateZ(${parseDegree(rotateZ)}) ` : '';
+  string += exists(rotate) ? `rotate(${maybeDegrees(rotate)}) ` : '';
+  string += exists(rotateX) ? `rotateX(${maybeDegrees(rotateX)}) ` : '';
+  string += exists(rotateY) ? `rotateY(${maybeDegrees(rotateY)}) ` : '';
+  string += exists(rotateZ) ? `rotateZ(${maybeDegrees(rotateZ)}) ` : '';
   string += exists(skew) ? `skew(${getMultiDegrees(skew)}) ` : '';
   string += exists(perspective)
-    ? `perspective(${parseCoord(perspective)}) `
+    ? `perspective(${maybePixels(perspective)}) `
     : '';
 
   return trimTrailingWhitespace(string);
