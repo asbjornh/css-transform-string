@@ -21,6 +21,8 @@
   * `rotateY`: number | string
   * `rotateZ`: number | string
   * `skew`: number | string | array (number | string)
+  * `skewX`: number | string
+  * `skewY`: number | string
   * `perspective`: number | string
 * returns: string
 

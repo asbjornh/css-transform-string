@@ -1,9 +1,20 @@
+const fs = require('fs');
+const path = require('path');
+const packageJson = require('../package.json');
 const test = require('ava');
 const transform = require('../index').default;
 
 const template = (t, input, expected) => {
   t.is(expected, transform(input));
 };
+
+test('Changelog has entry for current version', t => {
+  const changelog = fs.readFileSync(
+    path.resolve(__dirname, '..', 'CHANGELOG.md'),
+    'utf8'
+  );
+  t.is(true, changelog.includes(`# ${packageJson.version}`));
+});
 
 test('Empty argument', template, undefined, '');
 
