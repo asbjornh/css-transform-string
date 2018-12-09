@@ -1,5 +1,3 @@
-const trimTrailingWhitespace = (string = '') => string.replace(/\s+$/, '');
-
 const maybeAddUnit = (value, unit) =>
   value + (typeof value !== 'number' || value === 0 ? '' : unit);
 
@@ -15,52 +13,37 @@ const getMultiTranslate = coords => stringifyList(ensureArray(coords), 'px');
 const getMultiDegrees = coords => stringifyList(ensureArray(coords), 'deg');
 const getMultiUnitless = coords => stringifyList(ensureArray(coords), '');
 
-const exists = val => typeof val !== 'undefined';
+const stringifiers = {
+  x: v => `translateX(${maybePixels(v)})`,
+  y: v => `translateY(${maybePixels(v)})`,
+  z: v => `translateZ(${maybePixels(v)})`,
+  translate: v => `translate(${getMultiTranslate(v)})`,
+  translate3d: v => `translate3d(${getMultiTranslate(v)})`,
+  scale: v => `scale(${getMultiUnitless(v)})`,
+  scaleX: v => `scaleX(${v})`,
+  scaleY: v => `scaleY(${v})`,
+  scaleZ: v => `scaleZ(${v})`,
+  scale3d: v => `scale3d(${getMultiUnitless(v)})`,
+  rotate: v => `rotate(${maybeDegrees(v)})`,
+  rotateX: v => `rotateX(${maybeDegrees(v)})`,
+  rotateY: v => `rotateY(${maybeDegrees(v)})`,
+  rotateZ: v => `rotateZ(${maybeDegrees(v)})`,
+  skew: v => `skew(${getMultiDegrees(v)})`,
+  perspective: v => `perspective(${maybePixels(v)})`
+};
 
-function transform({
-  x,
-  y,
-  z,
-  translate,
-  translate3d,
-  scale,
-  scaleX,
-  scaleY,
-  scaleZ,
-  scale3d,
-  rotate,
-  rotateX,
-  rotateY,
-  rotateZ,
-  skew,
-  perspective
-}) {
-  let string = '';
+function transform(transformProperties) {
+  return Object.entries(transformProperties)
+    .map(([name, value]) => {
+      const stringifier = stringifiers[name];
 
-  string += exists(x) ? `translateX(${maybePixels(x)}) ` : '';
-  string += exists(y) ? `translateY(${maybePixels(y)}) ` : '';
-  string += exists(z) ? `translateZ(${maybePixels(z)}) ` : '';
-  string += exists(translate)
-    ? `translate(${getMultiTranslate(translate)}) `
-    : '';
-  string += exists(translate3d)
-    ? `translate3d(${getMultiTranslate(translate3d)}) `
-    : '';
-  string += exists(scale) ? `scale(${getMultiUnitless(scale)}) ` : '';
-  string += exists(scaleX) ? `scaleX(${scaleX}) ` : '';
-  string += exists(scaleY) ? `scaleY(${scaleY}) ` : '';
-  string += exists(scaleZ) ? `scaleZ(${scaleZ}) ` : '';
-  string += exists(scale3d) ? `scale3d(${getMultiUnitless(scale3d)}) ` : '';
-  string += exists(rotate) ? `rotate(${maybeDegrees(rotate)}) ` : '';
-  string += exists(rotateX) ? `rotateX(${maybeDegrees(rotateX)}) ` : '';
-  string += exists(rotateY) ? `rotateY(${maybeDegrees(rotateY)}) ` : '';
-  string += exists(rotateZ) ? `rotateZ(${maybeDegrees(rotateZ)}) ` : '';
-  string += exists(skew) ? `skew(${getMultiDegrees(skew)}) ` : '';
-  string += exists(perspective)
-    ? `perspective(${maybePixels(perspective)}) `
-    : '';
+      if (!stringifier) {
+        throw new Error(`Property '${name}' is not supported`);
+      }
 
-  return trimTrailingWhitespace(string);
+      return stringifier(value);
+    })
+    .join(' ');
 }
 
 export default transform;
