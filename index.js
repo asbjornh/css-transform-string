@@ -6,20 +6,13 @@ const maybeAddUnit = (value, unit) =>
 const maybePixels = value => maybeAddUnit(value, 'px');
 const maybeDegrees = value => maybeAddUnit(value, 'deg');
 
+const ensureArray = value => (value.length ? value : [value]);
+
 const stringifyList = (list, unit) =>
   list.map(value => maybeAddUnit(value, unit)).join(', ');
 
-function getMultiTranslate(coords) {
-  return coords.length > 1
-    ? stringifyList(coords, 'px')
-    : maybeAddUnit(coords, 'px');
-}
-
-function getMultiDegrees(degrees) {
-  return degrees.length > 1
-    ? stringifyList(degrees, 'deg')
-    : maybeAddUnit(degrees, 'deg');
-}
+const getMultiTranslate = coords => stringifyList(ensureArray(coords), 'px');
+const getMultiDegrees = coords => stringifyList(ensureArray(coords), 'deg');
 
 function getMultiValues(values) {
   return values.length > 1 ? stringifyList(values, '') : values;
