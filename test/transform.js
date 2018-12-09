@@ -1,20 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const packageJson = require('../package.json');
 const test = require('ava');
-const transform = require('../index').default;
+const { transform } = require('../index').default;
 
 const template = (t, input, expected) => {
   t.is(expected, transform(input));
 };
-
-test('Changelog has entry for current version', t => {
-  const changelog = fs.readFileSync(
-    path.resolve(__dirname, '..', 'CHANGELOG.md'),
-    'utf8'
-  );
-  t.is(true, changelog.includes(`# ${packageJson.version}`));
-});
 
 test('Empty argument', template, undefined, '');
 
@@ -91,5 +80,5 @@ test('Throws on unsupported property', t => {
   const error = t.throws(() => {
     transform({ notSupported: 1 });
   });
-  t.is(error.message, "Property 'notSupported' is not supported");
+  t.is("Property 'notSupported' is not supported", error.message);
 });
