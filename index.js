@@ -1,8 +1,5 @@
 const maybeAddUnit = (value, unit) =>
-  value + (typeof value !== 'number' || value === 0 ? '' : unit);
-
-const pixels = value => maybeAddUnit(value, 'px');
-const degrees = value => maybeAddUnit(value, 'deg');
+  value + (typeof value === 'number' && value !== 0 ? unit : '');
 
 // If passed an array, returns that array.
 // If passed a non-array, returns an array containing that value.
@@ -13,35 +10,34 @@ const stringifyList = (list, unit) =>
     .map(value => maybeAddUnit(value, unit))
     .join(', ');
 
-const pixelsList = values => stringifyList(values, 'px');
-const degreesList = values => stringifyList(values, 'deg');
 const unitlessList = values => stringifyList(values, '');
 
 const stringifiers = addUnits => {
-  const maybeDegrees = addUnits ? degrees : v => v;
-  const maybeDegreesList = addUnits ? degreesList : unitlessList;
-  const maybePixels = addUnits ? pixels : v => v;
-  const maybePixelsList = addUnits ? pixelsList : unitlessList;
+  const degrees = v => maybeAddUnit(v, addUnits ? 'deg' : '');
+  const degreesList = v => stringifyList(v, addUnits ? 'deg' : '');
+
+  const pixels = v => maybeAddUnit(v, addUnits ? 'px' : '');
+  const pixelsList = v => stringifyList(v, addUnits ? 'px' : '');
 
   return {
-    x: v => `translateX(${maybePixels(v)})`,
-    y: v => `translateY(${maybePixels(v)})`,
-    z: v => `translateZ(${maybePixels(v)})`,
-    translate: v => `translate(${maybePixelsList(v)})`,
-    translate3d: v => `translate3d(${maybePixelsList(v)})`,
+    x: v => `translateX(${pixels(v)})`,
+    y: v => `translateY(${pixels(v)})`,
+    z: v => `translateZ(${pixels(v)})`,
+    translate: v => `translate(${pixelsList(v)})`,
+    translate3d: v => `translate3d(${pixelsList(v)})`,
     scale: v => `scale(${unitlessList(v)})`,
     scaleX: v => `scaleX(${v})`,
     scaleY: v => `scaleY(${v})`,
     scaleZ: v => `scaleZ(${v})`,
     scale3d: v => `scale3d(${unitlessList(v)})`,
-    rotate: v => `rotate(${maybeDegrees(v)})`,
-    rotateX: v => `rotateX(${maybeDegrees(v)})`,
-    rotateY: v => `rotateY(${maybeDegrees(v)})`,
-    rotateZ: v => `rotateZ(${maybeDegrees(v)})`,
-    skew: v => `skew(${maybeDegreesList(v)})`,
-    skewX: v => `skewX(${maybeDegrees(v)})`,
-    skewY: v => `skewY(${maybeDegrees(v)})`,
-    perspective: v => `perspective(${maybePixels(v)})`
+    rotate: v => `rotate(${degrees(v)})`,
+    rotateX: v => `rotateX(${degrees(v)})`,
+    rotateY: v => `rotateY(${degrees(v)})`,
+    rotateZ: v => `rotateZ(${degrees(v)})`,
+    skew: v => `skew(${degreesList(v)})`,
+    skewX: v => `skewX(${degrees(v)})`,
+    skewY: v => `skewY(${degrees(v)})`,
+    perspective: v => `perspective(${pixels(v)})`
   };
 };
 
@@ -50,9 +46,7 @@ function doTransform(transformProperties = {}, addUnits) {
     .map(([name, value]) => {
       const stringifier = stringifiers(addUnits)[name];
 
-      if (!stringifier) {
-        throw new Error(`Property '${name}' is not supported`);
-      }
+      if (!stringifier) throw new Error(`Property '${name}' is not supported`);
 
       return stringifier(value);
     })
@@ -64,13 +58,11 @@ function doTranslate(x, y, addUnits) {
   return values.length ? stringifiers(addUnits).translate(values) : '';
 }
 
-const transformUnits = transformProperties =>
-  doTransform(transformProperties, true);
+const transformWithUnits = transformProperties => doTransform(transformProperties, true);
 
-export const transform = transformUnits;
-export const transformUnitless = transformProperties =>
-  doTransform(transformProperties);
+export const transform = transformWithUnits;
+export const transformUnitless = transformProperties => doTransform(transformProperties, false);
 export const translate = (x, y) => doTranslate(x, y, true);
-export const translateUnitless = (x, y) => doTranslate(x, y);
+export const translateUnitless = (x, y) => doTranslate(x, y, false);
 
 export default transform;
