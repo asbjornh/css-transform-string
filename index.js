@@ -1,5 +1,5 @@
-const maybeAddUnit = (value, unit, addUnits) =>
-  value + (addUnits && typeof value === 'number' && value !== 0 ? unit : '');
+const maybeAddUnit = (value, unit, addUnit) =>
+  value + (addUnit && typeof value === 'number' && value !== 0 ? unit : '');
 
 // If passed an array, returns that array.
 // If passed a non-array, returns an array containing that value.
