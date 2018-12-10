@@ -1,5 +1,7 @@
+const isNonZeroNumber = maybeNumber => typeof maybeNumber === 'number' && maybeNumber !== 0;
+
 const maybeAddUnit = (value, unit, addUnit) =>
-  value + (addUnit && typeof value === 'number' && value !== 0 ? unit : '');
+  value + (addUnit && isNonZeroNumber(value) ? unit : '');
 
 // If passed an array, returns that array.
 // If passed a non-array, returns an array containing that value.
