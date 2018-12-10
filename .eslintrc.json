@@ -1,11 +1,10 @@
 {
   "root": true,
-  "plugins": ["prettier", "jest"],
+  "plugins": ["prettier"],
   "extends": ["eslint:recommended", "prettier"],
   "env": {
     "browser": true,
     "es6": true,
-    "jest/globals": true,
     "node": true
   },
   "globals": {},
@@ -22,6 +21,7 @@
     "prettier/prettier": [
       "warn",
       {
+        "printWidth": 100,
         "singleQuote": true
       }
     ],
