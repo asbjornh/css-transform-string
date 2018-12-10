@@ -3,6 +3,13 @@
 [![npm version](https://img.shields.io/npm/v/css-transform-string.svg?style=flat)](https://www.npmjs.com/package/css-transform-string)
 [![build status](https://travis-ci.org/asbjornh/css-transform-string.svg?branch=master)](https://travis-ci.org/asbjornh/css-transform-string)
 
+## Browser support
+
+This package uses:
+
+* ES6
+* `Object.entries`
+
 ## API
 
 The module exports the following named exports. The default export is the `transform` function.
@@ -17,7 +24,7 @@ The module exports the following named exports. The default export is the `trans
 * `x`: number | string
 * `y`: number | string
 
-One might wonder why this is the only transform property that has its own utility. The reason is that I at some point found that 90% of the time I was just using the utility do to translates. Constantly doing `transform({ translate: [1, 2] })` got boring, so I decided to add `translate`.
+One might wonder why this is the only transform property that has its own utility. The reason is that I at some point found that 90% of the time I was just using the utility to do translates. Constantly doing `transform({ translate: [1, 2] })` got cumbersome, so I decided to add `translate`.
 
 ### transform(_transformObject_), transformUnitless(_transformObject_)
 
