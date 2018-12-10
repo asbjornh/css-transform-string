@@ -1,23 +1,23 @@
-const maybeAddUnit = (value, unit) =>
-  value + (typeof value === 'number' && value !== 0 ? unit : '');
+const maybeAddUnit = (value, unit, addUnits) =>
+  value + (addUnits && typeof value === 'number' && value !== 0 ? unit : '');
 
 // If passed an array, returns that array.
 // If passed a non-array, returns an array containing that value.
 const ensureArray = value => (value.length ? value : [value]);
 
-const stringifyList = (list, unit) =>
+const stringifyList = (list, unit, addUnits) =>
   ensureArray(list)
-    .map(value => maybeAddUnit(value, unit))
+    .map(value => maybeAddUnit(value, unit, addUnits))
     .join(', ');
 
-const unitlessList = values => stringifyList(values, '');
+const unitlessList = values => stringifyList(values, '', false);
 
 const stringifiers = addUnits => {
-  const degrees = v => maybeAddUnit(v, addUnits ? 'deg' : '');
-  const degreesList = v => stringifyList(v, addUnits ? 'deg' : '');
+  const degrees = v => maybeAddUnit(v, 'deg', addUnits);
+  const degreesList = v => stringifyList(v, 'deg', addUnits);
 
-  const pixels = v => maybeAddUnit(v, addUnits ? 'px' : '');
-  const pixelsList = v => stringifyList(v, addUnits ? 'px' : '');
+  const pixels = v => maybeAddUnit(v, 'px', addUnits);
+  const pixelsList = v => stringifyList(v, 'px', addUnits);
 
   return {
     x: v => `translateX(${pixels(v)})`,
