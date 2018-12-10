@@ -7,8 +7,8 @@ const maybeAddUnit = (value, unit, addUnit) =>
 // If passed a non-array, returns an array containing that value.
 const ensureArray = value => (value.length ? value : [value]);
 
-const stringifyList = (list, unit, addUnits) =>
-  ensureArray(list)
+const stringifyList = (maybeList, unit, addUnits) =>
+  ensureArray(maybeList)
     .map(value => maybeAddUnit(value, unit, addUnits))
     .join(', ');
 
