@@ -1,15 +1,16 @@
 {
   "name": "css-transform-string",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Create css transform string from object",
-  "main": "index.js",
+  "main": "lib/index.js",
   "files": [
-    "index.js",
+    "lib",
     "CHANGELOG.md",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
+    "build": "babel index.js -d lib",
     "test": "ava --verbose"
   },
   "contributors": [
@@ -21,6 +22,7 @@
   "author": "asbjornh",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/register": "^7.0.0",
