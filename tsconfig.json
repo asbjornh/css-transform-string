@@ -5,6 +5,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./lib",
+    "suppressImplicitAnyIndexErrors": true,
     "target": "es5"
   },
   "include": ["./index.ts", "./types.ts"]
