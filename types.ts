@@ -1,32 +1,29 @@
-export type Value = number | string;
-export type MultiValue = Value[] | Value;
-type Stringifier = (v: Value) => string;
-type MultiStringifier = (v: MultiValue) => string;
+export type Value = number | string | (string | number)[];
+export type SingleValue = number | string;
+export type Stringifier = (v: Value) => string;
 
-type TransformObject<T, U> = {
-  x?: T;
-  y?: T;
-  z?: T;
-  translate?: U;
-  translate3d?: U;
-  scale?: U;
-  scale3d?: U;
-  scaleX?: T;
-  scaleY?: T;
-  scaleZ?: T;
-  rotate?: T;
-  rotateX?: T;
-  rotateY?: T;
-  rotateZ?: T;
-  skew?: U;
-  skewX?: T;
-  skewY?: T;
-  perspective?: T;
-};
+type TransformProperty =
+  | 'x'
+  | 'y'
+  | 'z'
+  | 'translate'
+  | 'translate3d'
+  | 'scale'
+  | 'scale3d'
+  | 'scaleX'
+  | 'scaleY'
+  | 'scaleZ'
+  | 'rotate'
+  | 'rotateX'
+  | 'rotateY'
+  | 'rotateZ'
+  | 'skew'
+  | 'skewX'
+  | 'skewY'
+  | 'perspective';
 
 // Inlined types for more understandable intellisense
-export type TransformProperties = TransformObject<
-  string | number,
-  string | number | (string | number)[]
->;
-export type Stringifiers = TransformObject<Stringifier, MultiStringifier>;
+export type TransformProperties = {
+  [T in TransformProperty]?: string | number | (string | number)[]
+};
+export type Stringifiers = { [T in TransformProperty]: Stringifier };
