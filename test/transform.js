@@ -1,5 +1,5 @@
 const test = require('ava');
-const transform = require('../index').default;
+const transform = require('../lib').default;
 
 const template = (t, input, expected) => {
   t.is(expected, transform(input));
