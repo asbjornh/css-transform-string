@@ -11,6 +11,8 @@
   ],
   "scripts": {
     "build": "tsc",
+    "dev": "tsc --watch",
+    "test-dev": "ava --watch",
     "test": "tsc && ava --verbose"
   },
   "contributors": [
