@@ -4,17 +4,11 @@
   "extends": ["eslint:recommended", "prettier"],
   "env": {
     "browser": true,
-    "es6": true,
-    "node": true
+    "es6": true
   },
-  "globals": {},
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
-    "ecmaFeatures": {
-      "classes": true,
-      "jsx": true
-    },
     "sourceType": "module"
   },
   "rules": {
