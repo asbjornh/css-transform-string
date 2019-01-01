@@ -65,9 +65,9 @@ const doTranslate = (s: Stringifiers, x?: SingleValue, y?: SingleValue) =>
 export const transform = (t: TransformProperties) => doTransform(stringifiers, t);
 export const transformUnitless = (t: TransformProperties) =>
   doTransform(unitlessStringifiers, t);
-export const translate = (x?: SingleValue, y?: SingleValue) =>
+export const translate = (x?: string | number, y?: string | number) =>
   doTranslate(stringifiers, x, y);
-export const translateUnitless = (x?: SingleValue, y?: SingleValue) =>
+export const translateUnitless = (x?: string | number, y?: string | number) =>
   doTranslate(unitlessStringifiers, x, y);
 
 export default transform;
