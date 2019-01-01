@@ -64,6 +64,13 @@ test(
 );
 
 test(
+  'Undefined values',
+  template,
+  { x: undefined, translate3d: [undefined, undefined, undefined] },
+  'translateX() translate3d()'
+);
+
+test(
   'Supports string values',
   template,
   {
