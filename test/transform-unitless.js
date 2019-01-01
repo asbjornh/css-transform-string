@@ -1,5 +1,5 @@
 const test = require('ava');
-const { transformUnitless } = require('../index');
+const { transformUnitless } = require('../lib');
 
 const template = (t, input, expected) => {
   t.is(expected, transformUnitless(input));

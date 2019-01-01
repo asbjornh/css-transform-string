@@ -1,5 +1,5 @@
 const test = require('ava');
-const { translate } = require('../index');
+const { translate } = require('../lib');
 
 const template = (t, x, y, expected) => {
   t.is(expected, translate(x, y));
