@@ -6,7 +6,9 @@
     "noUnusedParameters": true,
     "outDir": "./lib",
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es5"
+    "target": "es5",
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
   },
   "include": ["./index.ts"]
 }
