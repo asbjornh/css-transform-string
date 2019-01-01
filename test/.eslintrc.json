@@ -11,12 +11,6 @@
     "ecmaVersion": 6
   },
   "rules": {
-    "prettier/prettier": [
-      "warn",
-      {
-        "singleQuote": true
-      }
-    ],
     "strict": 0,
     "eqeqeq": 1,
     "no-console": 1,
