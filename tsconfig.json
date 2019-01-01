@@ -8,5 +8,5 @@
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5"
   },
-  "include": ["./index.ts", "./types.ts"]
+  "include": ["./index.ts"]
 }
