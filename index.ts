@@ -59,8 +59,10 @@ const doTransform = (s: Stringifiers, t: TransformProperties) =>
     })
     .join(' ');
 
-const doTranslate = (s: Stringifiers, x?: SingleValue, y?: SingleValue) =>
-  s.translate([x, y].filter(v => typeof v !== 'undefined'));
+const doTranslate = (s: Stringifiers, x?: SingleValue, y?: SingleValue) => {
+  const args = [x, y].filter(v => typeof v !== 'undefined');
+  return args.length ? s.translate(args) : '';
+};
 
 export const transform = (t: TransformProperties) => doTransform(stringifiers, t);
 export const transformUnitless = (t: TransformProperties) =>
