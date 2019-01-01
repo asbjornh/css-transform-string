@@ -1,3 +1,7 @@
+# 2.1.0
+
+* Replaces javascript implementation with typescript (Javascript is still supported)
+
 # 2.0.0
 
 * Adds transpilation again. The decision to remove it backfired almost immediately. 🤷‍♂️

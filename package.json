@@ -1,10 +1,12 @@
 {
   "name": "css-transform-string",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Create css transform string from object",
   "main": "lib/index.js",
   "files": [
     "lib",
+    "index.ts",
+    "types.ts",
     "CHANGELOG.md",
     "README.md",
     "LICENSE"
