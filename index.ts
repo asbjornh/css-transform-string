@@ -7,15 +7,16 @@ import {
 } from './types';
 
 const isNonZeroNumber = (n: any) => typeof n === 'number' && n !== 0;
-
 const ensureArray = (v: any): any[] => (Array.isArray(v) ? v : [v]);
+const safeString = (v: string | number): string => (v === undefined ? '' : String(v));
 
 const maybeAddUnit = (value: SingleValue, unit: string) =>
-  value + (isNonZeroNumber(value) ? unit : '');
+  safeString(value) + (isNonZeroNumber(value) ? unit : '');
 
 const stringifyValue = (value: Value, unit: string, addUnits: boolean) =>
   ensureArray(value)
     .map((value: SingleValue) => (addUnits ? maybeAddUnit(value, unit) : value))
+    .filter(v => v !== '')
     .join(', ');
 
 const getStringifiers = (addUnits: boolean) => {
@@ -59,17 +60,15 @@ const doTransform = (s: Stringifiers, t: TransformProperties) =>
     })
     .join(' ');
 
-const doTranslate = (s: Stringifiers, x?: SingleValue, y?: SingleValue) => {
-  const args = [x, y].filter(v => typeof v !== 'undefined');
-  return args.length ? s.translate(args) : '';
-};
+const doTranslate = (s: Stringifiers, x: SingleValue, y?: SingleValue) =>
+  s.translate(y === undefined ? x : [x, y]);
 
 export const transform = (t: TransformProperties) => doTransform(stringifiers, t);
 export const transformUnitless = (t: TransformProperties) =>
   doTransform(unitlessStringifiers, t);
-export const translate = (x?: string | number, y?: string | number) =>
+export const translate = (x: string | number, y?: string | number) =>
   doTranslate(stringifiers, x, y);
-export const translateUnitless = (x?: string | number, y?: string | number) =>
+export const translateUnitless = (x: string | number, y?: string | number) =>
   doTranslate(unitlessStringifiers, x, y);
 
 export default transform;
